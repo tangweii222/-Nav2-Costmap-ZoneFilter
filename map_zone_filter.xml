@@ -1,5 +1,0 @@
-<library path="map_zone_filter">
-  <class name="nav2_costmap_2d::MapZoneFilter" type="nav2_costmap_2d::MapZoneFilter" base_class_type="nav2_costmap_2d::Layer">
-    <description>Custom map zone filter for region classification.</description>
-  </class>
-</library>

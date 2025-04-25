@@ -1,0 +1,9 @@
+<library path="zone_filter">
+  <class name="nav2_costmap_2d::ZoneFilter"
+         type="nav2_costmap_2d::ZoneFilter"
+         base_class_type="nav2_costmap_2d::Layer">
+    <description>
+      A custom costmap filter layer that publishes the zone state (e.g. M1, M2, M3)
+    </description>
+  </class>
+</library>

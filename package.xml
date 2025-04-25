@@ -23,6 +23,6 @@
 
   <export>
     <build_type>ament_cmake</build_type>
-    <pluginlib plugin_manifest="map_zone_filter.xml"/>
+    <pluginlib plugin_manifest="zone_filter.xml"/>
   </export>
 </package>
