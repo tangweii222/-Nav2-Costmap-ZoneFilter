@@ -39,6 +39,14 @@ def generate_launch_description():
 
     lifecycle_nodes = ['filter_mask_server', 'costmap_filter_info_server']
 
+    # 預設路徑與 topic 設定
+    default_pkg = get_package_share_directory('zone_filter')
+    default_params_file = os.path.join(default_pkg, 'params', 'binary_params.yaml')
+    default_mask_file = os.path.join(default_pkg, 'maps', 'binary_mask.yaml')
+    default_filter_info_topic = '/binary_filter_info'
+    default_mask_topic = '/binary_filter_mask'
+
+
     # Parameters
     namespace = LaunchConfiguration('namespace')
     use_sim_time = LaunchConfiguration('use_sim_time')
@@ -66,10 +74,12 @@ def generate_launch_description():
 
     declare_params_file_cmd = DeclareLaunchArgument(
         'params_file',
+        default_value=default_params_file,
         description='Full path to the ROS2 parameters file to use')
 
     declare_mask_yaml_file_cmd = DeclareLaunchArgument(
         'mask',
+        default_value=default_mask_file,
         description='Full path to filter mask yaml file to load')
 
     declare_use_composition_cmd = DeclareLaunchArgument(
@@ -82,10 +92,12 @@ def generate_launch_description():
     
     declare_filter_info_topic_cmd = DeclareLaunchArgument(
         'filter_info_topic',    
+        default_value=default_filter_info_topic,
         description='Topic name for costmap filter info')
 
     declare_mask_topic_cmd = DeclareLaunchArgument(
         'mask_topic',
+        default_value=default_mask_topic,
         description='Topic name for the filter mask')
 
 
