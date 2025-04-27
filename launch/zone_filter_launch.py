@@ -42,9 +42,9 @@ def generate_launch_description():
     # 預設路徑與 topic 設定
     default_pkg = get_package_share_directory('zone_filter')
     default_params_file = os.path.join(default_pkg, 'params', 'binary_params.yaml')
-    default_mask_file = os.path.join(default_pkg, 'maps', 'binary_mask.yaml')
-    default_filter_info_topic = '/binary_filter_info'
-    default_mask_topic = '/binary_filter_mask'
+    default_mask_file = os.path.join(default_pkg, 'maps', 'zone_mask.yaml')
+    default_filter_info_topic = '/zone_filter_info'
+    default_mask_topic = '/zone_filter_mask'
 
 
     # Parameters

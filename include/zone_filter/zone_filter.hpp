@@ -8,46 +8,48 @@
 #include "std_msgs/msg/bool.hpp"
 #include "nav2_msgs/msg/costmap_filter_info.hpp"
 
+#include "std_msgs/msg/string.hpp"
+
 namespace nav2_costmap_2d
 {
 
 class ZoneFilter : public CostmapFilter
 {
 public:
-  ZoneFilter();
+    ZoneFilter();
 
-  void initializeFilter(const std::string & filter_info_topic) override;
+    void initializeFilter(const std::string & filter_info_topic) override;
 
-  void process(
-    Costmap2D & master_grid, int min_i, int min_j, int max_i, int max_j,
-    const geometry_msgs::msg::Pose2D & pose) override;
+    void process(
+        Costmap2D & master_grid, int min_i, int min_j, int max_i, int max_j,
+        const geometry_msgs::msg::Pose2D & pose) override;
 
-  void resetFilter() override;
+    void resetFilter() override;
 
-  bool isActive() ;
+    bool isActive() ;
 
 private:
-  void filterInfoCallback(const nav2_msgs::msg::CostmapFilterInfo::SharedPtr msg);
-  void maskCallback(const nav_msgs::msg::OccupancyGrid::SharedPtr msg);
-  void changeState(bool state);
+    void filterInfoCallback(const nav2_msgs::msg::CostmapFilterInfo::SharedPtr msg);
+    void maskCallback(const nav_msgs::msg::OccupancyGrid::SharedPtr msg);
+    void changeState(const std::string & state);
 
-  std::string global_frame_;
-  std::string filter_info_topic_;
-  std::string mask_topic_;
-  std::string zone_state_topic_;
+    std::string global_frame_;
+    std::string filter_info_topic_;
+    std::string mask_topic_;
+    std::string zone_state_topic_;
 
-  rclcpp::Subscription<nav2_msgs::msg::CostmapFilterInfo>::SharedPtr filter_info_sub_;
-  rclcpp::Subscription<nav_msgs::msg::OccupancyGrid>::SharedPtr mask_sub_;
-  rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::Bool>::SharedPtr zone_state_pub_;
+    rclcpp::Subscription<nav2_msgs::msg::CostmapFilterInfo>::SharedPtr filter_info_sub_;
+    rclcpp::Subscription<nav_msgs::msg::OccupancyGrid>::SharedPtr mask_sub_;
+    // pub type
+    rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::String>::SharedPtr zone_state_pub_;
 
-  nav_msgs::msg::OccupancyGrid::SharedPtr filter_mask_;
+    nav_msgs::msg::OccupancyGrid::SharedPtr filter_mask_;
 
-  double base_, multiplier_;
-  double flip_threshold_;
-
-  bool default_state_;
-  bool binary_state_;
-  bool current_state_;
+    double base_, multiplier_;
+    // double flip_threshold_;
+    // state variables
+    std::string default_state_;
+    std::string current_state_;
 };
 
 }  // namespace nav2_costmap_2d
