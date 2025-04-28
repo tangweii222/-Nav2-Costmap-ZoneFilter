@@ -37,11 +37,11 @@ def generate_launch_description():
     # Get the launch directory
     costmap_filters_demo_dir = get_package_share_directory('nav2_costmap_filters_demo')
 
-    lifecycle_nodes = ['filter_mask_server', 'costmap_filter_info_server']
+    lifecycle_nodes = ['zone_filter_mask_server', 'zone_costmap_filter_info_server']
 
     # 預設路徑與 topic 設定
     default_pkg = get_package_share_directory('zone_filter')
-    default_params_file = os.path.join(default_pkg, 'params', 'binary_params.yaml')
+    default_params_file = os.path.join(default_pkg, 'params', 'zone_params.yaml')
     default_mask_file = os.path.join(default_pkg, 'maps', 'zone_mask.yaml')
     default_filter_info_topic = '/zone_filter_info'
     default_mask_topic = '/zone_filter_mask'
@@ -121,15 +121,15 @@ def generate_launch_description():
             Node(
                 package='nav2_map_server',
                 executable='map_server',
-                name='filter_mask_server',
+                name='zone_filter_mask_server',
                 namespace=namespace,
                 output='screen',
                 emulate_tty=True,  # https://github.com/ros2/launch/issues/188
                 parameters=[configured_params]),
             Node(
                 package='nav2_map_server',
-                executable='costmap_filter_info_server',
-                name='costmap_filter_info_server',
+                executable='zone_costmap_filter_info_server',
+                name='zone_costmap_filter_info_server',
                 namespace=namespace,
                 output='screen',
                 emulate_tty=True,  # https://github.com/ros2/launch/issues/188
@@ -137,7 +137,7 @@ def generate_launch_description():
             Node(
                 package='nav2_lifecycle_manager',
                 executable='lifecycle_manager',
-                name='lifecycle_manager_costmap_filters',
+                name='lifecycle_manager_zone_filter',
                 namespace=namespace,
                 output='screen',
                 emulate_tty=True,  # https://github.com/ros2/launch/issues/188
@@ -161,17 +161,17 @@ def generate_launch_description():
                     ComposableNode(
                         package='nav2_map_server',
                         plugin='nav2_map_server::MapServer',
-                        name='filter_mask_server',
+                        name='zone_filter_mask_server',
                         parameters=[configured_params]),
                     ComposableNode(
                         package='nav2_map_server',
                         plugin='nav2_map_server::CostmapFilterInfoServer',
-                        name='costmap_filter_info_server',
+                        name='zone_costmap_filter_info_server',
                         parameters=[configured_params]),
                     ComposableNode(
                         package='nav2_lifecycle_manager',
                         plugin='nav2_lifecycle_manager::LifecycleManager',
-                        name='lifecycle_manager_costmap_filters',
+                        name='lifecycle_manager_zone_filter',
                         parameters=[{'use_sim_time': use_sim_time},
                                     {'autostart': autostart},
                                     {'node_names': lifecycle_nodes}]),
