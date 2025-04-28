@@ -24,12 +24,12 @@ This allows behavior trees, planners, or other systems to adjust robot behaviors
 ### 1. Clone the repository
 
 ```bash
-cd ~/turtlebot3_ws/src
+cd ~/your_ws/src
 git clone git@github.com:tangweii222/-Nav2-Costmap-ZoneFilter.git zone_filter
 ```
 ### 2. Build the package
 ```bash
-cd ~/turtlebot3_ws
+cd ~/your_ws
 colcon build --packages-select zone_filter
 ```
 ### 3. Source the workspace
@@ -55,7 +55,7 @@ global_costmap:
         default_state: "M2"
 ```
 Example Zones (based on mask value)
-Mask Value	Zone	Description
-0	M3	Free driving area
-40	M2	Side-constrained zone
-100	M1	Restricted zone
+Mask Value | Zone | Description
+0 | M3 | Free driving area
+40 | M2 | Side-constrained zone
+100 | M1 | Restricted zone
