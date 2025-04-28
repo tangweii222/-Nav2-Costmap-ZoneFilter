@@ -55,7 +55,8 @@ global_costmap:
         default_state: "M2"
 ```
 Example Zones (based on mask value)
-Mask Value | Zone | Description
-0 | M3 | Free driving area
-40 | M2 | Side-constrained zone
-100 | M1 | Restricted zone
+| Mask Value | Zone | Description             |
+|:-----------|:-----|:-------------------------|
+| 0          | M3   | Free driving area         |
+| 40         | M2   | Side-constrained zone     |
+| 100        | M1   | Restricted zone           |
