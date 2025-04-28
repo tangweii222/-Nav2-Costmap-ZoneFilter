@@ -31,6 +31,7 @@ from nav2_common.launch import RewrittenYaml
 # for default parameters
 import os
 from ament_index_python.packages import get_package_share_directory
+from launch.actions import TimerAction
 
 
 def generate_launch_description():
@@ -155,26 +156,31 @@ def generate_launch_description():
                 condition=IfCondition(PythonExpression(["'", LaunchConfiguration('namespace'), "' != ''"])),
                 namespace=namespace),
 
-            LoadComposableNodes(
-                target_container=container_name_full,
-                composable_node_descriptions=[
-                    ComposableNode(
-                        package='nav2_map_server',
-                        plugin='nav2_map_server::MapServer',
-                        name='zone_filter_mask_server',
-                        parameters=[configured_params]),
-                    ComposableNode(
-                        package='nav2_map_server',
-                        plugin='nav2_map_server::CostmapFilterInfoServer',
-                        name='zone_costmap_filter_info_server',
-                        parameters=[configured_params]),
-                    ComposableNode(
-                        package='nav2_lifecycle_manager',
-                        plugin='nav2_lifecycle_manager::LifecycleManager',
-                        name='lifecycle_manager_zone_filter',
-                        parameters=[{'use_sim_time': use_sim_time},
-                                    {'autostart': autostart},
-                                    {'node_names': lifecycle_nodes}]),
+            TimerAction(
+                period=2.0,
+                actions=[
+                    LoadComposableNodes(
+                        target_container=container_name_full,
+                        composable_node_descriptions=[
+                            ComposableNode(
+                                package='nav2_map_server',
+                                plugin='nav2_map_server::MapServer',
+                                name='zone_filter_mask_server',
+                                parameters=[configured_params]),
+                            ComposableNode(
+                                package='nav2_map_server',
+                                plugin='nav2_map_server::CostmapFilterInfoServer',
+                                name='zone_costmap_filter_info_server',
+                                parameters=[configured_params]),
+                            ComposableNode(
+                                package='nav2_lifecycle_manager',
+                                plugin='nav2_lifecycle_manager::LifecycleManager',
+                                name='lifecycle_manager_zone_filter',
+                                parameters=[{'use_sim_time': use_sim_time},
+                                            {'autostart': autostart},
+                                            {'node_names': lifecycle_nodes}]),
+                        ]
+                    )
                 ]
             )
         ]
