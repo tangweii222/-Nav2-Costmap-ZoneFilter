@@ -26,29 +26,22 @@ This allows behavior trees, planners, or other systems to adjust robot behaviors
 ```bash
 cd ~/turtlebot3_ws/src
 git clone git@github.com:tangweii222/-Nav2-Costmap-ZoneFilter.git zone_filter
-2. Build the package
-bash
-複製
-編輯
+```
+### 2. Build the package
+```bash
 cd ~/turtlebot3_ws
 colcon build --packages-select zone_filter
-3. Source the workspace
-bash
-複製
-編輯
+```
+### 3. Source the workspace
+```bash
 source install/setup.bash
-4. Configure and launch
-Add zone_filter as a plugin in your nav2_params.yaml under plugins: list.
-
-Set parameters like default_state, zone_state_topic, and flip_threshold if needed.
-
-Ensure a proper mask map (OccupancyGrid) is provided to the filter.
-
+```
+### 4. Configure and launch
+- Add zone_filter as a plugin in your nav2_params.yaml under plugins: list.
+- Set parameters like default_state, zone_state_topic, and flip_threshold if needed.
+- Ensure a proper mask map (OccupancyGrid) is provided to the filter.
 Example:
-
-yaml
-複製
-編輯
+```nav2_param.yaml
 global_costmap:
   global_costmap:
     ros__parameters:
@@ -60,7 +53,8 @@ global_costmap:
         filter_info_topic: "/zone_filter_info"
         zone_state_topic: "/zone_state"
         default_state: "M2"
-
+```
+Example Zones (based on mask value)
 Mask Value	Zone	Description
 0	M3	Free driving area
 40	M2	Side-constrained zone
