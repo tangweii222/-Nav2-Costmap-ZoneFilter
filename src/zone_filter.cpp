@@ -102,7 +102,7 @@ void ZoneFilter::process(
     if (mask_value == nav2_util::OCC_GRID_UNKNOWN) {
         RCLCPP_WARN_THROTTLE(
             logger_, *(clock_), 2000,
-            "ZoneFilter: Filter mask [%i, %i] data is unknown.", mx, my);
+            "ZoneFilter: Filter mask [%i, %i]` data is unknown.", mx, my);
         return;
     }
 
