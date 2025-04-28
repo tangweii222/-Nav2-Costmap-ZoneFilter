@@ -25,7 +25,8 @@ This allows behavior trees, planners, or other systems to adjust robot behaviors
 
 ```bash
 cd ~/your_ws/src
-git clone git@github.com:tangweii222/-Nav2-Costmap-ZoneFilter.git zone_filter
+git clone https://github.com/tangweii222/-Nav2-Costmap-ZoneFilter.git zone_filter
+
 ```
 ### 2. Build the package
 ```bash
