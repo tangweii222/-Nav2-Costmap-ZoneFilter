@@ -1,5 +1,5 @@
 # Nav2-Costmap-ZoneFilter
-## ZoneFilter - Nav2 Costmap Layer
+Nav2 Costmap Filter 
 
 ## Overview
 
