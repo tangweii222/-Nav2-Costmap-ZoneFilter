@@ -107,7 +107,7 @@ void ZoneFilter::process(
     }
 
     std::string zone;
-    RCLCPP_INFO(logger_, "ZoneFilter: mask_value = %d", mask_value);
+    // RCLCPP_INFO(logger_, "ZoneFilter: mask_value = %d", mask_value);
 
     if (mask_value == 0) {
         zone = "M3";  // 255 白色
@@ -148,7 +148,7 @@ bool ZoneFilter::isActive()
 void ZoneFilter::changeState(const std::string & state)
 {
     current_state_ = state;
-    RCLCPP_INFO(logger_, "ZoneFilter: Switching to zone: %s", state.c_str());
+    // RCLCPP_INFO(logger_, "ZoneFilter: Switching to zone: %s", state.c_str());
 
     auto msg = std::make_unique<std_msgs::msg::String>();
     msg->data = state;

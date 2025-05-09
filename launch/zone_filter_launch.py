@@ -36,7 +36,7 @@ from launch.actions import TimerAction
 
 def generate_launch_description():
     # Get the launch directory
-    costmap_filters_demo_dir = get_package_share_directory('nav2_costmap_filters_demo')
+    # costmap_filters_demo_dir = get_package_share_directory('nav2_costmap_filters_demo')
 
     lifecycle_nodes = ['zone_filter_mask_server', 'zone_costmap_filter_info_server']
 

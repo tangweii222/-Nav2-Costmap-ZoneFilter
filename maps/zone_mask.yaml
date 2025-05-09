@@ -1,15 +1,7 @@
 image: zone_mask.pgm
 mode: scale
 resolution: 0.05
-origin: [-2.96, -2.57, 0]
+origin: [-19.7, -22.4, 0]
 negate: 0
 occupied_thresh: 0.65
 free_thresh: 0.25
-
-# 說明:
-# mode: scale - 使用 (255 - 灰度值)/255 作為線性比例計算佔用值。
-# negate: 0 - 白色表示空閒（空區域），黑色表示佔用（障礙物）。
-#           （如果設置為 1，顏色將反轉。）
-# occupied_thresh: 0.65 - 值 > 0.65 被認為是佔用（值為 100）。
-# free_thresh: 0.25 - 值 < 0.25 被認為是空閒（值為 0）。
-# 值在 [0.25, 0.65] 之間的區域標記為未知（-1）。

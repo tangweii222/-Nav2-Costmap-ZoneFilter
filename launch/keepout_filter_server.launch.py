@@ -93,14 +93,7 @@ def generate_launch_description():
                 namespace=namespace,
                 output='screen',
                 emulate_tty=True,
-                parameters=[{
-                    'use_sim_time': use_sim_time,
-                    'filter_info_topic': LaunchConfiguration('filter_info_topic'),
-                    'mask_topic': LaunchConfiguration('mask_topic'),
-                    'type': 0,  # 🔥 type = 0，表示 Keepout filter
-                    'base': 0.0,
-                    'multiplier': 1.0
-                }]),
+               parameters=[configured_params]),
             Node(
                 package='nav2_lifecycle_manager',
                 executable='lifecycle_manager',
