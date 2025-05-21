@@ -12,4 +12,4 @@ keepout_filter_mask_server:
     use_sim_time: true
     frame_id: "map"
     topic_name: "/keepout_filter_mask"
-    yaml_filename: "map_zone_filter/maps/zone_filter_mask.yaml"
+    yaml_filename: /home/itriamr/bishop_ws/src/features/zone_filter/maps/keepout_mask.yaml
