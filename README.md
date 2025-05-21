@@ -1,63 +1,49 @@
-# Nav2-Costmap-ZoneFilter
-Nav2 Costmap Filter 
+# `zone_filter` package
 
-## Overview
+A modular ROS 2 package for managing multiple **Costmap2D filters** (e.g., keepout zones, binary zones) with dynamic configuration and reusable launch structures.
 
-**ZoneFilter** is a custom ROS2 Costmap2D filter plugin designed for the Navigation2 (Nav2) stack.  
-It dynamically classifies the robot's current location into different predefined zones based on a mask map, and publishes the zone information as a ROS topic.
+### Features
 
-This allows behavior trees, planners, or other systems to adjust robot behaviors (such as speed limits, safety modes, or navigation strategies) according to the zone the robot is currently located in.
-
----
-
-## Key Features
-
-- Subscribe to a mask map (`OccupancyGrid`) and classify zones based on pixel values.
-- Publish zone state (`std_msgs/String`) at 0.5s intervals or when zone changes.
-- Support for multiple custom zone types (e.g., M1, M2, M3).
-- Designed for integration with Nav2 layered costmaps.
+* Supports multiple filters (e.g., `zone`, `keepout`) launched simultaneously.
+* Each filter uses its own parameter YAML and mask map.
+* Simple extensibility
 
 ---
 
-## Quick Start
-
-### 1. Clone the repository
+## Usage
 
 ```bash
-cd ~/your_ws/src
-git clone https://github.com/tangweii222/-Nav2-Costmap-ZoneFilter.git zone_filter
+ros2 launch zone_filter multi_filter_bringup.launch.py
+```
 
-```
-### 2. Build the package
-```bash
-cd ~/your_ws
-colcon build --packages-select zone_filter
-```
-### 3. Source the workspace
-```bash
-source install/setup.bash
-```
-### 4. Configure and launch
-- Add zone_filter as a plugin in your nav2_params.yaml under plugins: list.
-- Set parameters like default_state, zone_state_topic, and flip_threshold if needed.
-- Ensure a proper mask map (OccupancyGrid) is provided to the filter.
-Example:
-```nav2_param.yaml
-global_costmap:
-  global_costmap:
-    ros__parameters:
-      filters: [ "zone_filter", ... ]
+### Optional arguments:
 
-      zone_filter:
-        plugin: "nav2_costmap_2d::ZoneFilter"
-        enabled: True
-        filter_info_topic: "/zone_filter_info"
-        zone_state_topic: "/zone_state"
-        default_state: "M2"
+```bash
+use_zone:=true       # Launch 'zone' filter
+use_keepout:=true    # Launch 'keepout' filter
 ```
-Example Zones (based on mask value)
-| Mask Value | Zone | Description             |
-|:-----------|:-----|:-------------------------|
-| 0          | M3   | Free driving area         |
-| 40         | M2   | Side-constrained zone     |
-| 100        | M1   | Restricted zone           |
+
+---
+
+## Adding a New Filter
+
+To add a new filter (e.g., `xfilter`):
+
+### 1. Edit `multi_filter_bringup.launch.py`
+
+Add your filter name to the list:
+
+```python
+filter_types = ['zone', 'keepout', 'xfilter']
+```
+
+### 2. Prepare the files
+
+* `params/xfilter_params.yaml`(and matching `xfilter`)
+* `maps/xfilter_mask.yaml` (and matching `.pgm`)
+* `maps/xfilter_mask.pgm`
+
+
+Make sure the mask YAML uses an **absolute path** or is placed inside `install/share/zone_filter/maps`.
+
+---
